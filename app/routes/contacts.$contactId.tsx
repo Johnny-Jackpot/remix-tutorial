@@ -1,6 +1,7 @@
 import { FunctionComponent } from "react";
 import { ContactRecord } from "~/data";
 import { Form } from "@remix-run/react";
+import { ContactName } from "~/components/contact-name";
 
 export default function Contact() {
   const contact = {
@@ -11,7 +12,9 @@ export default function Contact() {
     twitter: "therock",
     notes: "Some notes",
     favorite: true,
-  };
+    id: "3443574534534543",
+    createdAt: new Date().toDateString(),
+  } satisfies ContactRecord;
 
   return (
     <div id="contact">
@@ -24,13 +27,7 @@ export default function Contact() {
       </div>
       <div>
         <h1>
-          {contact.first || contact.last ? (
-            <>
-              {contact.first} {contact.last}
-            </>
-          ) : (
-            <i>No Name</i>
-          )}{" "}
+          <ContactName contact={contact} />
           <Favorite contact={contact} />
         </h1>
 
