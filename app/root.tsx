@@ -7,6 +7,7 @@ import {
   ScrollRestoration,
   Outlet,
   useLoaderData,
+  useNavigation,
 } from "@remix-run/react";
 import type { LinksFunction, TypedResponse } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
@@ -34,6 +35,7 @@ export const loader = async (): Promise<TypedResponse<LoaderData>> => {
 
 export default function App() {
   const { contacts } = useLoaderData<LoaderData>();
+  const navigation = useNavigation();
 
   return (
     <html lang="en">
@@ -85,7 +87,10 @@ export default function App() {
             )}
           </nav>
         </div>
-        <div id="detail">
+        <div
+          id="detail"
+          className={navigation.state === "loading" ? "loading" : ""}
+        >
           <Outlet />
         </div>
         <ScrollRestoration />
