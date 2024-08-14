@@ -9,7 +9,11 @@ import {
   useLoaderData,
   useNavigation,
 } from "@remix-run/react";
-import type { LinksFunction, TypedResponse } from "@remix-run/node";
+import type {
+  LinksFunction,
+  LoaderFunctionArgs,
+  TypedResponse,
+} from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { ContactRecord, getContacts, createEmptyContact } from "./data";
 import appStylesHref from "./app.css?url";
@@ -28,8 +32,12 @@ interface LoaderData {
   contacts: ContactRecord[];
 }
 
-export const loader = async (): Promise<TypedResponse<LoaderData>> => {
-  const contacts = await getContacts();
+export const loader = async ({
+  request,
+}: LoaderFunctionArgs): Promise<TypedResponse<LoaderData>> => {
+  const url = new URL(request.url);
+  const q = url.searchParams.get("q");
+  const contacts = await getContacts(q);
   return json({ contacts });
 };
 
