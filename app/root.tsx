@@ -9,7 +9,7 @@ import {
   useLoaderData,
 } from "@remix-run/react";
 import type { LinksFunction, TypedResponse } from "@remix-run/node";
-import { json } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 import { ContactRecord, getContacts, createEmptyContact } from "./data";
 import appStylesHref from "./app.css?url";
 import { ContactName } from "~/components/contact-name";
@@ -20,7 +20,7 @@ export const links: LinksFunction = () => [
 
 export const action = async () => {
   const contact = await createEmptyContact();
-  return json({ contact });
+  return redirect(`/contacts/${contact.id}/edit`);
 };
 
 interface LoaderData {
