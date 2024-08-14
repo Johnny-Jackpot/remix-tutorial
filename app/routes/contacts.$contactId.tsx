@@ -48,7 +48,7 @@ export default function Contact() {
             <button type="submit">Edit</button>
           </Form>
           <Form
-            action="destroy"
+            action="delete"
             method="post"
             onSubmit={(event) => {
               const res = confirm(
