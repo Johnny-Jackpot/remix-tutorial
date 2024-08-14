@@ -1,6 +1,6 @@
 import {
   Form,
-  Link,
+  NavLink,
   Links,
   Meta,
   Scripts,
@@ -66,10 +66,15 @@ export default function App() {
               <ul>
                 {contacts.map((contact: ContactRecord) => (
                   <li key={contact.id}>
-                    <Link to={`contacts/${contact.id}`}>
+                    <NavLink
+                      to={`contacts/${contact.id}`}
+                      className={({ isActive, isPending }) =>
+                        isActive ? "active" : isPending ? "pending" : ""
+                      }
+                    >
                       <ContactName contact={contact} />
                       {contact.favorite ? <span>★</span> : null}
-                    </Link>
+                    </NavLink>
                   </li>
                 ))}
               </ul>
